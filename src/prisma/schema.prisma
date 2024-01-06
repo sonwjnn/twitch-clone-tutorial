@@ -7,6 +7,7 @@ datasource db {
 
 generator client {
   provider = "prisma-client-js"
+  previewFeatures = ["fullTextSearch", "fullTextIndex"]
 }
 
 model Account {
@@ -23,7 +24,7 @@ model Account {
   id_token           String?  @db.Text
   session_state      String?
 
-  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  user               User @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@unique([provider, providerAccountId])
 }
@@ -34,21 +35,28 @@ enum UserRole {
 }
 
 model User {
-  id            String    @id @default(cuid())
-  name          String?
-  email         String?   @unique
-  emailVerified DateTime?
-  password      String?
-  role          UserRole  @default(USER)
-  image         String?
-  accounts      Account[]
-  isTwoFactorEnabled Boolean @default(false)
+  id                    String    @id @default(cuid())
+  name                  String?   @unique
+  email                 String?   @unique
+  emailVerified         DateTime?
+  password              String?
+  role                  UserRole  @default(USER)
+  image                 String?   @db.Text
+  // stream             Stream?
+  accounts              Account[]
+  isTwoFactorEnabled    Boolean @default(false)
   twoFactorConfirmation TwoFactorConfirmation?
+
+  following             Follow[]  @relation("Following")
+  followedBy            Follow[]  @relation("FollowedBy")
+
+  createdAt             DateTime  @default(now())
+  updatedAt             DateTime  @updatedAt
 }
 
 model VerificationToken {
   id        String   @id @default(cuid())
-  email     String
+  email     String   @db.Text
   token     String   @unique
   expires   DateTime
 
@@ -57,7 +65,7 @@ model VerificationToken {
 
 model PasswordResetToken {
   id        String   @id @default(cuid())
-  email     String
+  email     String   @db.Text
   token     String   @unique
   expires   DateTime
 
@@ -65,19 +73,59 @@ model PasswordResetToken {
 }
 
 model TwoFactorToken {
-  id String @id @default(cuid())
-  email String
-  token String @unique
-  expires DateTime
+  id        String   @id @default(cuid())
+  email     String   @db.Text
+  token     String   @unique
+  expires   DateTime
 
   @@unique([email, token])
 }
 
 model TwoFactorConfirmation {
-  id String @id @default(cuid())
-
-  userId String
-  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  id        String   @id @default(cuid())
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@unique([userId])
+}
+
+// model Stream {
+//   id   String @id @default(cuid())
+//   name String @db.Text
+//   thumbnailUrl String? @db.Text 
+
+//   ingressId String? @unique
+//   serverUrl String? @db.Text
+//   streamKey String? @db.Text
+
+//   isLive Boolean @default(false)
+//   isChatEnabled Boolean @default(true)
+//   isChatDelayed Boolean @default(false)
+//   isChatFollowersOnly Boolean @default(false)
+
+//   userId String @unique
+//   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+//   createdAt DateTime @default(now())
+//   updatedAt DateTime @updatedAt
+
+//   @@index([userId])
+//   @@index([ingressId])
+//   @@fulltext([name])
+// }
+
+model Follow {
+  id            String      @id @default(uuid())
+  followerId    String
+  followingId   String
+
+  follower      User        @relation(name: "Following", fields: [followerId], references: [id], onDelete: Cascade)
+  following     User        @relation(name: "FollowedBy", fields: [followingId], references: [id], onDelete: Cascade)
+
+  createdAt     DateTime    @default(now())
+  updatedAt     DateTime    @updatedAt
+
+  @@unique([followerId, followingId])
+  @@index([followerId])
+  @@index([followingId])
 }

@@ -9,8 +9,7 @@ import {
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu'
 import { useCurrentUser } from '@/hooks/use-current-user'
-import { DoorOpen } from 'lucide-react'
-import { FaUser } from 'react-icons/fa'
+import { DoorOpen, UserRound } from 'lucide-react'
 
 export const UserButton = () => {
   const user = useCurrentUser()
@@ -21,17 +20,17 @@ export const UserButton = () => {
         <Avatar className="transition hover:brightness-110">
           <AvatarImage src={user?.image || ''} />
           <AvatarFallback className="bg-sky-500">
-            <FaUser className="text-white" />
+            <UserRound className="text-white" />
           </AvatarFallback>
         </Avatar>
       </DropdownMenuTrigger>
       <DropdownMenuContent className="w-40" align="end">
-        <LogoutButton>
-          <DropdownMenuItem>
-            <DoorOpen className="mr-2 size-4" />
+        <DropdownMenuItem className="cursor-pointer">
+          <LogoutButton className="flex w-full">
+            <DoorOpen className="mr-2 mt-0.5 size-4" />
             Logout
-          </DropdownMenuItem>
-        </LogoutButton>
+          </LogoutButton>
+        </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>
   )

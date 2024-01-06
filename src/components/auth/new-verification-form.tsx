@@ -13,6 +13,7 @@ interface NewVerificationFormProps {}
 export const NewVerificationForm = ({}: NewVerificationFormProps) => {
   const [error, setError] = useState<string | undefined>()
   const [success, setSuccess] = useState<string | undefined>()
+  const [email, setEmail] = useState<string | undefined>()
 
   const searchParams = useSearchParams()
 
@@ -29,6 +30,7 @@ export const NewVerificationForm = ({}: NewVerificationFormProps) => {
     newVerification(token)
       .then(data => {
         setSuccess(data.success)
+        setEmail(data.email)
         setError(data.error)
       })
       .catch(() => {
@@ -42,9 +44,18 @@ export const NewVerificationForm = ({}: NewVerificationFormProps) => {
 
   return (
     <CardWrapper
-      headerLabel="Confirming your verification"
+      headerLabel="Verify Email"
+      headerDescription={`${
+        !error
+          ? `A verification email has been sent to ${
+              email || 'your email'
+            }. <br/>
+          Click the link in the email to verify your account.`
+          : ''
+      }`}
       backButtonLabel="Back to login"
       backButtonHref="/auth/login"
+      type="verify-email"
     >
       <div className="flex w-full items-center justify-center">
         {!success && !error && <BeatLoader />}

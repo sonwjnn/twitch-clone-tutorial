@@ -1,11 +1,10 @@
 'use client'
 
 import { Button } from '@/components/ui/button'
+import { GithubIcon, GoogleIcon } from '@/public/icons'
 import { DEFAULT_LOGIN_REDIRECT } from '@/routes'
 import { signIn } from 'next-auth/react'
 import { useSearchParams } from 'next/navigation'
-import { FaGithub } from 'react-icons/fa'
-import { FcGoogle } from 'react-icons/fc'
 
 interface SocialProps {}
 
@@ -27,7 +26,7 @@ export const Social = ({}: SocialProps) => {
         className="w-full"
         variant="outline"
       >
-        <FcGoogle />
+        <GoogleIcon size={28} />
       </Button>
       <Button
         onClick={() => onClick('github')}
@@ -35,7 +34,7 @@ export const Social = ({}: SocialProps) => {
         className="w-full"
         variant="outline"
       >
-        <FaGithub />
+        <GithubIcon size={36} />
       </Button>
     </div>
   )
