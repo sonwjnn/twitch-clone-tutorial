@@ -2,6 +2,7 @@
 
 import { LogoutButton } from '@/components/auth/logout-button'
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
+import { Button } from '@/components/ui/button'
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -9,7 +10,8 @@ import {
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu'
 import { useCurrentUser } from '@/hooks/use-current-user'
-import { DoorOpen, UserRound } from 'lucide-react'
+import { DoorOpen, Settings, UserRound } from 'lucide-react'
+import Link from 'next/link'
 
 export const UserButton = () => {
   const user = useCurrentUser()
@@ -25,6 +27,13 @@ export const UserButton = () => {
         </Avatar>
       </DropdownMenuTrigger>
       <DropdownMenuContent className="w-40" align="end">
+        <DropdownMenuItem className="cursor-pointer">
+          <Link className="flex cursor-pointer items-center" href="/settings">
+            <Settings className="mr-2 mt-0.5 size-4" />
+            Settings
+          </Link>
+        </DropdownMenuItem>
+
         <DropdownMenuItem className="cursor-pointer">
           <LogoutButton className="flex w-full">
             <DoorOpen className="mr-2 mt-0.5 size-4" />

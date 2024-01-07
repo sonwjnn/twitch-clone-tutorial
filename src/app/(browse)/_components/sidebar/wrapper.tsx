@@ -14,7 +14,7 @@ interface WrapperProps {
 
 export const Wrapper = ({ children }: WrapperProps) => {
   const isClient = useIsClient()
-  const { collapsed } = useSidebar(state => state)
+  const { isCollapsed } = useSidebar(state => state)
 
   if (!isClient) {
     return (
@@ -29,8 +29,8 @@ export const Wrapper = ({ children }: WrapperProps) => {
   return (
     <aside
       className={cn(
-        'fixed left-0 z-50 flex h-full w-60 flex-col border-r border-[#2D2E35] bg-background',
-        collapsed && 'w-[70px]'
+        'fixed left-0 z-50 flex h-full w-60 flex-col border-r border-[#2D2E35] bg-background transition-all duration-300 ease-in-out',
+        isCollapsed && 'w-[70px]'
       )}
     >
       {children}

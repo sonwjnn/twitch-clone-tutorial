@@ -10,15 +10,17 @@ interface RecommendedProps {
 }
 
 export const Recommended = ({ data }: RecommendedProps) => {
-  const { collapsed } = useSidebar(state => state)
+  const { isCollapsed } = useSidebar(state => state)
 
-  const showLabel = !collapsed && data.length > 0
+  const showLabel = !isCollapsed && data.length > 0
 
   return (
     <div>
       {showLabel && (
         <div className="mb-4 pl-6">
-          <p className="text-sm text-muted-foreground">Recommended</p>
+          <p className="line-clamp-1 text-sm text-muted-foreground">
+            Recommended
+          </p>
         </div>
       )}
       <ul className="space-y-2 px-2">

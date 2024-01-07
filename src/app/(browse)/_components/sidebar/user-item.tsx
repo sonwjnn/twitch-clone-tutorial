@@ -18,7 +18,7 @@ interface UserItemProps {
 export const UserItem = ({ username, imageUrl, isLive }: UserItemProps) => {
   const pathname = usePathname()
 
-  const { collapsed } = useSidebar(state => state)
+  const { isCollapsed } = useSidebar(state => state)
 
   const href = `/${username}`
   const isActive = pathname === href
@@ -29,7 +29,7 @@ export const UserItem = ({ username, imageUrl, isLive }: UserItemProps) => {
       variant="ghost"
       className={cn(
         'h-12 w-full',
-        collapsed ? 'justify-center' : 'justfy-start',
+        isCollapsed ? 'justify-center' : 'justfy-start',
         isActive && 'bg-accent'
       )}
     >
@@ -37,12 +37,12 @@ export const UserItem = ({ username, imageUrl, isLive }: UserItemProps) => {
         <div
           className={cn(
             'flex w-full items-center gap-x-4',
-            collapsed && 'justify-center'
+            isCollapsed && 'justify-center'
           )}
         >
           <UserAvatar imageUrl={imageUrl} username={username} isLive={isLive} />
-          {!collapsed && <p className="truncate">{username}</p>}
-          {!collapsed && isLive && <LiveBadge className="ml-auto" />}
+          {!isCollapsed && <p className="truncate">{username}</p>}
+          {!isCollapsed && isLive && <LiveBadge className="ml-auto" />}
         </div>
       </Link>
     </Button>
