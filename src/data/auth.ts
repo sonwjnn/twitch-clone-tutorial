@@ -31,7 +31,7 @@ export const getSelfByUsername = async (name: string) => {
       throw new Error('Unauthorized')
     }
 
-    const user = await db.user.findFirst({
+    const user = await db.user.findUnique({
       where: { name },
     })
 

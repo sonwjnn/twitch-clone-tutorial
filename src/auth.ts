@@ -4,7 +4,7 @@ import { getTwoFactorConfirmationByUserId } from '@/data/two-factor-confirmation
 import { getUserById } from '@/data/user'
 import { db } from '@/lib/db'
 import { PrismaAdapter } from '@auth/prisma-adapter'
-import { Stream } from '@prisma/client'
+import { Stream, User } from '@prisma/client'
 import NextAuth from 'next-auth'
 
 export const {
@@ -72,7 +72,7 @@ export const {
       }
 
       if (session.user) {
-        session.user.name = token.name
+        session.user.name = token.name as string
         session.user.email = token.email
         session.user.isOAuth = token.isOAuth as boolean
         session.user.stream = token.stream as Stream

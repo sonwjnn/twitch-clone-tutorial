@@ -10,17 +10,17 @@ import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 
 interface UserItemProps {
-  username: string
+  name: string
   imageUrl: string
   isLive?: boolean
 }
 
-export const UserItem = ({ username, imageUrl, isLive }: UserItemProps) => {
+export const UserItem = ({ name, imageUrl, isLive }: UserItemProps) => {
   const pathname = usePathname()
 
   const { isCollapsed } = useSidebar(state => state)
 
-  const href = `/${username}`
+  const href = `/${name}`
   const isActive = pathname === href
 
   return (
@@ -40,8 +40,8 @@ export const UserItem = ({ username, imageUrl, isLive }: UserItemProps) => {
             isCollapsed && 'justify-center'
           )}
         >
-          <UserAvatar imageUrl={imageUrl} username={username} isLive={isLive} />
-          {!isCollapsed && <p className="truncate">{username}</p>}
+          <UserAvatar imageUrl={imageUrl} name={name} isLive={isLive} />
+          {!isCollapsed && <p className="truncate">{name}</p>}
           {!isCollapsed && isLive && <LiveBadge className="ml-auto" />}
         </div>
       </Link>

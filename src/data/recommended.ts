@@ -5,13 +5,9 @@ import { getSelf } from './auth'
 export const getRecommended = async () => {
   const self = await getSelf()
 
-  if (!self) {
-    return []
-  }
-
   let users = []
 
-  if (self.id) {
+  if (self?.id) {
     //Find users that current (self) users are not following and are not blocked
     users = await db.user.findMany({
       where: {
@@ -41,12 +37,43 @@ export const getRecommended = async () => {
           },
         ],
       },
+      include: {
+        stream: {
+          select: {
+            isLive: true,
+          },
+        },
+      },
+      orderBy: [
+        {
+          stream: {
+            isLive: 'desc',
+          },
+        },
+        {
+          createdAt: 'desc',
+        },
+      ],
     })
   } else {
     users = await db.user.findMany({
-      orderBy: {
-        createdAt: 'desc',
+      include: {
+        stream: {
+          select: {
+            isLive: true,
+          },
+        },
       },
+      orderBy: [
+        {
+          stream: {
+            isLive: 'desc',
+          },
+        },
+        {
+          createdAt: 'desc',
+        },
+      ],
     })
   }
 

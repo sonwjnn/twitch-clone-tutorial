@@ -10,7 +10,16 @@ interface ContainerProps {
 }
 
 export const Container = ({ children }: ContainerProps) => {
-  const { isCollapsed } = useSidebar(state => state)
+  const matches = useMediaQuery('(max-width: 1024px)')
+  const { isCollapsed, onCollapse, onExpand } = useSidebar(state => state)
+
+  useEffect(() => {
+    if (matches) {
+      onCollapse()
+    } else {
+      onExpand()
+    }
+  }, [matches, onCollapse, onExpand])
 
   return (
     <div
