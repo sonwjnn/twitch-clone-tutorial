@@ -14,12 +14,28 @@ import { Header } from './header'
 import { InfoCard } from './info-card'
 import { Video, VideoSkeleton } from './video'
 
+type CustomStream = {
+  id: string
+  isChatEnabled: boolean
+  isChatDelayed: boolean
+  isChatFollowersOnly: boolean
+  isLive: boolean
+  thumbnailUrl: string | null
+  name: string
+}
+
+type CustomUser = {
+  id: string
+  name: string | null
+  bio: string | null
+  stream: CustomStream | null
+  image: string | null
+  _count: { followedBy: number }
+}
+
 interface StreamPlayerProps {
-  user: User & {
-    stream: Stream | null
-    _count: { followedBy: number }
-  }
-  stream: Stream
+  user: CustomUser
+  stream: CustomStream
   isFollowing: boolean
 }
 

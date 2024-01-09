@@ -4,7 +4,12 @@
  * @type {string[]}
  */
 
-export const publicRoutes = ['/', '/auth/new-verification', '/search']
+export const publicRoutes = [
+  '/',
+  '/auth/new-verification',
+  '/search',
+  '/:username',
+]
 
 /**
  * An array of routes that are used for authentication .
@@ -45,3 +50,4 @@ export const apiUploadthingPrefix = '/api/uploadthing'
  * @type {string}
  */
 export const DEFAULT_LOGIN_REDIRECT = '/'
+export const DEFAULT_SETTINGS_REDIRECT = '/settings/profile'

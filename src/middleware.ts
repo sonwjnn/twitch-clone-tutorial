@@ -1,6 +1,7 @@
 import authConfig from '@/auth.config'
 import {
   DEFAULT_LOGIN_REDIRECT,
+  DEFAULT_SETTINGS_REDIRECT,
   apiAuthPrefix,
   apiUploadthingPrefix,
   apiWebhooksPrefix,
@@ -8,6 +9,7 @@ import {
   publicRoutes,
 } from '@/routes'
 import NextAuth from 'next-auth'
+import { match } from 'path-to-regexp'
 
 const { auth } = NextAuth(authConfig)
 
@@ -17,11 +19,15 @@ export default auth(req => {
 
   const isApiAuthRoute = nextUrl.pathname.startsWith(apiAuthPrefix)
   const isApiWebhooksRoute = nextUrl.pathname.startsWith(apiWebhooksPrefix)
-  const isUploadthingRoute = nextUrl.pathname.startsWith(apiUploadthingPrefix)
-  const isPublicRoute = publicRoutes.includes(nextUrl.pathname)
+  const isApiUploadthingRoute =
+    nextUrl.pathname.startsWith(apiUploadthingPrefix)
+  const isPublicRoute = publicRoutes.some(route => {
+    const matchRoute = match(route, { decode: decodeURIComponent })
+    return !!matchRoute(nextUrl.pathname)
+  })
   const isAuthRoute = authRoutes.includes(nextUrl.pathname)
 
-  if (isApiAuthRoute || isApiWebhooksRoute || isUploadthingRoute) {
+  if (isApiAuthRoute || isApiWebhooksRoute || isApiUploadthingRoute) {
     return null
   }
 
@@ -43,6 +49,10 @@ export default auth(req => {
     return Response.redirect(
       new URL(`/auth/login?callbackUrl=${encodedCallbackUrl}`, nextUrl)
     )
+  }
+
+  if (nextUrl.pathname === '/settings') {
+    return Response.redirect(new URL(DEFAULT_SETTINGS_REDIRECT, nextUrl))
   }
 
   return null
