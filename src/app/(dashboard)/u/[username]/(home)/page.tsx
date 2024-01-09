@@ -1,4 +1,4 @@
-// import { StreamPlayer } from "@/components/stream-player";
+import { StreamPlayer } from '@/components/stream-player'
 import { getUserByUsername } from '@/data/user'
 import { currentUser } from '@/lib/auth'
 
@@ -13,18 +13,13 @@ const CreatorPage = async ({ params }: CreatorPageProps) => {
   const externalUser = await currentUser()
   const user = await getUserByUsername(username)
 
-  // if (!user || user.externalUserId !== externalUser?.id || !user.stream) {
-  //   throw new Error("Unauthorized");
-  // }
+  if (!user || user.id !== externalUser?.id || !user.stream) {
+    throw new Error('Unauthorized')
+  }
 
   return (
     <div className="h-full">
-      {/* <StreamPlayer
-        user={user}
-        stream={user.stream}
-        isFollowing
-      /> */}
-      Creator Page
+      <StreamPlayer user={user} stream={user.stream} isFollowing />
     </div>
   )
 }

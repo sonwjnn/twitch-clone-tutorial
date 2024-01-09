@@ -1,5 +1,6 @@
 import { getSelfByUsername } from '@/data/auth'
 import { redirect } from 'next/navigation'
+import { Suspense } from 'react'
 
 import { Container } from './_components/container'
 import { Navbar } from './_components/navbar'
@@ -22,7 +23,9 @@ const CreatorLayout = async ({ params, children }: CreatorLayoutProps) => {
     <>
       <Navbar />
       <div className="flex h-full pt-20">
-        <Sidebar />
+        <Suspense fallback={'Loading...'}>
+          <Sidebar />
+        </Suspense>
         <Container>{children}</Container>
       </div>
     </>

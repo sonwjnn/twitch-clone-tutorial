@@ -1,6 +1,5 @@
 'use client'
 
-// import { useUser } from "@clerk/nextjs";
 import { useCurrentUser } from '@/hooks/use-current-user'
 import { Fullscreen, KeyRound, MessageSquare, Users } from 'lucide-react'
 import { usePathname } from 'next/navigation'
@@ -9,7 +8,6 @@ import { NavItem, NavItemSkeleton } from './nav-item'
 
 export const Navigation = () => {
   const pathname = usePathname()
-  // const { user } = useUser();
   const user = useCurrentUser()
 
   const routes = [
@@ -36,13 +34,7 @@ export const Navigation = () => {
   ]
 
   if (!user?.name) {
-    return (
-      <ul className="space-y-2">
-        {[...Array(4)].map((_, i) => (
-          <NavItemSkeleton key={i} />
-        ))}
-      </ul>
-    )
+    return <NavigationSkeleton />
   }
 
   return (
@@ -55,6 +47,16 @@ export const Navigation = () => {
           href={route.href}
           isActive={pathname === route.href}
         />
+      ))}
+    </ul>
+  )
+}
+
+export const NavigationSkeleton = () => {
+  return (
+    <ul className="space-y-2">
+      {[...Array(4)].map((_, i) => (
+        <NavItemSkeleton key={i} />
       ))}
     </ul>
   )

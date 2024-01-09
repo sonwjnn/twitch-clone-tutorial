@@ -20,13 +20,15 @@ export const {
   },
   events: {
     async linkAccount({ user }) {
+      const username = user?.name?.replace(/ /g, '_')
       await db.user.update({
         where: { id: user.id },
         data: {
+          name: username,
           emailVerified: new Date(),
           stream: {
             create: {
-              name: `${user.name}'s stream}`,
+              name: `${username}'s stream`,
             },
           },
         },

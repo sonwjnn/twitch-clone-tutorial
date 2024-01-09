@@ -41,6 +41,7 @@ model User {
   password              String?
   role                  UserRole               @default(USER)
   image                 String?                @db.Text
+  bio                   String?                @db.Text
   accounts              Account[]
   isTwoFactorEnabled    Boolean                @default(false)
   twoFactorConfirmation TwoFactorConfirmation?

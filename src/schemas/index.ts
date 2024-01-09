@@ -10,7 +10,12 @@ export const LoginSchema = z.object({
 export const RegisterSchema = z.object({
   email: z.string().email({ message: 'Email is required' }),
   password: z.string().min(6, { message: 'Minimun 6 characters required' }),
-  name: z.string().min(1, { message: 'User name is required' }),
+  name: z
+    .string()
+    .min(1, { message: 'User name is required' })
+    .refine(name => !name.includes(' '), {
+      message: 'User name cannot contain spaces',
+    }),
 })
 
 export const ResetSchema = z.object({

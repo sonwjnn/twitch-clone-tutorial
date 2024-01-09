@@ -37,7 +37,7 @@ export const SettingsButton = ({
   }
 
   return (
-    <span onClick={onClick} className={cn('cursor-pointer', className)}>
+    <span onClick={onClick} className={cn('cursor-pointer ', className)}>
       {children}
     </span>
   )
