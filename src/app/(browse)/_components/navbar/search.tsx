@@ -44,7 +44,7 @@ export const Search = () => {
       />
       {value && (
         <X
-          className="absolute right-14 top-2.5 size-5 cursor-pointer text-muted-foreground transition hover:opacity-75"
+          className="absolute right-14 top-2.5 h-5 w-5 cursor-pointer text-muted-foreground transition hover:opacity-75"
           onClick={onClear}
         />
       )}
@@ -54,7 +54,7 @@ export const Search = () => {
         variant="secondary"
         className="rounded-l-none"
       >
-        <SearchIcon className="size-5 text-muted-foreground" />
+        <SearchIcon className="h-5 w-5 text-muted-foreground" />
       </Button>
     </form>
   )
