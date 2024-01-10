@@ -3,25 +3,31 @@ import { db } from '@/lib/db'
 import { getSelf } from './auth'
 
 export const getRecommended = async () => {
-  const self = await getSelf()
+  let userId
+
+  try {
+    const self = await getSelf()
+    userId = self?.id
+  } catch {
+    userId = null
+  }
 
   let users = []
 
-  if (self?.id) {
-    //Find users that current (self) users are not following and are not blocked
+  if (userId) {
     users = await db.user.findMany({
       where: {
         AND: [
           {
             NOT: {
-              id: self.id,
+              id: userId,
             },
           },
           {
             NOT: {
               followedBy: {
                 some: {
-                  followerId: self.id,
+                  followerId: userId,
                 },
               },
             },
@@ -30,7 +36,7 @@ export const getRecommended = async () => {
             NOT: {
               blocking: {
                 some: {
-                  blockedId: self.id,
+                  blockedId: userId,
                 },
               },
             },
