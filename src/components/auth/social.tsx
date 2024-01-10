@@ -1,7 +1,7 @@
 'use client'
 
+import { GithubIcon, GoogleIcon } from '@/components/icons'
 import { Button } from '@/components/ui/button'
-import { GithubIcon, GoogleIcon } from '@/public/icons'
 import { DEFAULT_LOGIN_REDIRECT } from '@/routes'
 import { signIn } from 'next-auth/react'
 import { useSearchParams } from 'next/navigation'

@@ -1,8 +1,8 @@
 import { BackButton } from '@/components/auth/back-button'
 import { Header } from '@/components/auth/header'
 import { Social } from '@/components/auth/social'
+import { VerifyEmailIcon } from '@/components/icons'
 import { Card, CardContent, CardFooter, CardHeader } from '@/components/ui/card'
-import { VerifyEmailIcon } from '@/public/icons'
 
 interface CardWrapperProps {
   children: React.ReactNode
