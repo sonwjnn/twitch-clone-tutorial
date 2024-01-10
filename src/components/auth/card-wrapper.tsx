@@ -7,7 +7,7 @@ import { VerifyEmailIcon } from '@/public/icons'
 interface CardWrapperProps {
   children: React.ReactNode
   headerLabel: string
-  headerDescription: string
+  headerDescription?: string
   backButtonLabel: string
   backButtonHref: string
   showSocial?: boolean
@@ -17,7 +17,7 @@ interface CardWrapperProps {
 export const CardWrapper = ({
   children,
   headerLabel,
-  headerDescription,
+  headerDescription = '',
   backButtonHref,
   backButtonLabel,
   showSocial,

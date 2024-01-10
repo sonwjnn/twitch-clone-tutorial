@@ -7,6 +7,7 @@ export const ErrorCard = ({}: ErrorCardProps) => {
   return (
     <CardWrapper
       headerLabel="Oops! something went wrong!"
+      headerDescription="Please try again or contact support if the problem persists."
       backButtonHref="/auth/login"
       backButtonLabel="Back to login"
     >
