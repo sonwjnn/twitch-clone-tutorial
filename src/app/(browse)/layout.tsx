@@ -13,9 +13,9 @@ const BrowseLayout = ({ children }: BrowseLayoutProps) => {
     <>
       <Navbar />
       <div className="flex h-full pt-20">
-        <Suspense fallback={<SidebarSkeleton />}>
+        {/* <Suspense fallback={<SidebarSkeleton />}>
           <Sidebar />
-        </Suspense>
+        </Suspense> */}
         <Container>{children}</Container>
       </div>
     </>
