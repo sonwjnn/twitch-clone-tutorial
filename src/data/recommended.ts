@@ -8,6 +8,8 @@ export const getRecommended = async () => {
 
     let users = []
 
+    console.log(self)
+
     if (self?.id) {
       //Find users that current (self) users are not following and are not blocked
       users = await db.user.findMany({
