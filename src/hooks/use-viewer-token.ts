@@ -27,7 +27,8 @@ export const useViewerToken = (hostIdentity: string) => {
         if (name) {
           setName(name)
         }
-      } catch {
+      } catch (error) {
+        console.log(error)
         toast.error('Something went wrong')
       }
     }
