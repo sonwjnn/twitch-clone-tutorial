@@ -6,8 +6,6 @@ export const getFollowedUsers = async () => {
   try {
     const self = await getSelf()
 
-    console.log(self)
-
     if (!self) {
       return []
     }
