@@ -10,20 +10,14 @@ export const Sidebar = async () => {
   const recommended = await getRecommended()
   const following = await getFollowedUsers()
 
-  console.log(recommended, following)
-
-  if (recommended.length === 0 || following.length === 0) {
-    return <SidebarSkeleton />
-  }
-
   return (
-    <Wrapper>
+    <div className="fixed w-60">
       <Toggle />
       <div className="space-y-4 pt-4 lg:pt-0">
-        {/* <Following data={following} />
-        <Recommended data={recommended} /> */}
+        <Following data={following} />
+        <Recommended data={recommended} />
       </div>
-    </Wrapper>
+    </div>
   )
 }
 
