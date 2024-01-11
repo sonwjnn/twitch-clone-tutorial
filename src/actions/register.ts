@@ -31,7 +31,7 @@ export const register = async (values: z.infer<typeof RegisterSchema>) => {
       password: hashedPassword,
       stream: {
         create: {
-          name: `${name}'s stream}`,
+          name: `${name}'s stream`,
         },
       },
     },
