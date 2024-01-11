@@ -5,12 +5,12 @@ export const getSelf = async () => {
   try {
     const self = await currentUser()
 
-    if (!self || !self.name) {
+    if (!self) {
       throw new Error('Unauthorized')
     }
 
     const user = await db.user.findUnique({
-      where: { id: self.id },
+      where: { id: self?.id },
     })
 
     if (!user) {
