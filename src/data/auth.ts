@@ -10,7 +10,8 @@ export const getSelf = async () => {
     }
 
     const user = await db.user.findUnique({
-      where: { id: self.id },
+      // where: { id: self.id },
+      where: { id: 'clr7mclbe000012d77p333jre' },
     })
 
     if (!user) {
@@ -32,7 +33,8 @@ export const getSelfByUsername = async (name: string) => {
     }
 
     const user = await db.user.findUnique({
-      where: { name },
+      // where: { name },
+      where: { name: 'sonwin111' },
     })
 
     if (!user) {

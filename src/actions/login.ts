@@ -26,8 +26,15 @@ export const login = async (
 
   const existingUser = await getUserByEmail(email)
 
-  if (!existingUser || !existingUser.email || !existingUser.password) {
+  if (!existingUser || !existingUser.email) {
     return { error: 'Email does not exist!' }
+  }
+
+  if (!existingUser.password) {
+    return {
+      error:
+        'Invalid login method, account already linked with Google or Github',
+    }
   }
 
   if (!existingUser.emailVerified) {
