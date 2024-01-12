@@ -5,13 +5,12 @@ export const getSelf = async () => {
   try {
     const self = await currentUser()
 
-    // if (!self) {
-    //   throw new Error('Unauthorized')
-    // }
+    if (!self) {
+      throw new Error('Unauthorized')
+    }
 
     const user = await db.user.findUnique({
-      // where: { id: self.id },
-      where: { id: 'clr7mclbe000012d77p333jre' },
+      where: { id: self.id },
     })
 
     if (!user) {
@@ -28,22 +27,21 @@ export const getSelfByUsername = async (name: string) => {
   try {
     const self = await currentUser()
 
-    // if (!self || !self.name) {
-    //   throw new Error('Unauthorized')
-    // }
+    if (!self || !self.name) {
+      throw new Error('Unauthorized')
+    }
 
     const user = await db.user.findUnique({
-      // where: { name },
-      where: { name: 'sonwin111' },
+      where: { name },
     })
 
     if (!user) {
       throw new Error('User not found')
     }
 
-    // if (self.name !== user.name) {
-    //   throw new Error('Unauthorized')
-    // }
+    if (self.name !== user.name) {
+      throw new Error('Unauthorized')
+    }
 
     return user
   } catch {

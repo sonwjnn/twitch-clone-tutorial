@@ -6,7 +6,7 @@ declare module '@auth/core/types' {
   export interface Session {
     user: {
       role: UserRole
-      stream: Stream
+      // stream: Stream
       isTwoFactorEnabled: boolean
       isOAuth: boolean
     } & DefaultSession['user']
