@@ -3,11 +3,11 @@ import { db } from '@/lib/db'
 
 export const getSelf = async () => {
   try {
-    // const self = await currentUser()
+    const self = await currentUser()
 
-    // if (!self) {
-    //   throw new Error('Unauthorized')
-    // }
+    if (!self) {
+      throw new Error('Unauthorized')
+    }
 
     const user = await db.user.findUnique({
       // where: { id: self.id },
@@ -26,11 +26,11 @@ export const getSelf = async () => {
 
 export const getSelfByUsername = async (name: string) => {
   try {
-    // const self = await currentUser()
+    const self = await currentUser()
 
-    // if (!self || !self.name) {
-    //   throw new Error('Unauthorized')
-    // }
+    if (!self || !self.name) {
+      throw new Error('Unauthorized')
+    }
 
     const user = await db.user.findUnique({
       // where: { name },

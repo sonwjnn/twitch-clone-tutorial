@@ -1,11 +1,21 @@
 import { auth } from '@/auth'
 
 export const currentUser = async () => {
-  const session = await auth()
-  return session?.user
+  try {
+    const session = await auth()
+    return session?.user
+  } catch (error) {
+    console.error('Error getting current user:', error)
+    throw error
+  }
 }
 
 export const currentRole = async () => {
-  const session = await auth()
-  return session?.user?.role
+  try {
+    const session = await auth()
+    return session?.user?.role
+  } catch (error) {
+    console.error('Error getting current role:', error)
+    throw error
+  }
 }
