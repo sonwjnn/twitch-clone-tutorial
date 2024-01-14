@@ -23,9 +23,9 @@ const CreatorLayout = async ({ params, children }: CreatorLayoutProps) => {
     <>
       <Navbar />
       <div className="flex h-full pt-20">
-        <Suspense fallback={'Loading...'}>
-          <Sidebar />
-        </Suspense>
+        {/* <Suspese fallback={'Loading...'}> */}
+        <Sidebar />
+        {/* </Suspese> */}
         <Container>{children}</Container>
       </div>
     </>
