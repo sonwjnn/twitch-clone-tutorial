@@ -74,10 +74,10 @@ export const {
       }
 
       if (session.user) {
-        session.user.name = token.name as string
+        session.user.name = token.name
         session.user.email = token.email
-        session.user.isOAuth = token.isOAuth as boolean
-        session.user.stream = token.stream as Stream
+        session.user.isOAuth = token.isOAuth
+        session.user.stream = token.stream
       }
 
       return session
@@ -96,7 +96,13 @@ export const {
       token.email = existingUser.email
       token.role = existingUser.role
       token.isTwoFactorEnabled = existingUser.isTwoFactorEnabled
-      token.stream = existingUser.stream
+
+      if (existingUser.stream) {
+        token.stream = {
+          name: existingUser.stream?.name,
+          isLive: existingUser.stream?.isLive,
+        }
+      }
 
       return token
     },
